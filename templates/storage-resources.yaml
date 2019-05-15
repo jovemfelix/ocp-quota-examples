@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: "storage-resources"
+spec:
+  hard:
+# The sum of storage requests across all persistent volume claims in any state
+# cannot exceed this value.
+    requests.storage: "50Gi" 
+# The total number of persistent volume claims that can exist in the project.
+    persistentvolumeclaims: "10" 
+# <storage-class-name>.storageclass.storage.k8s.io/requests.storage
+# The sum of storage requests across all persistent volume claims in any state
+# that have a matching storage class, cannot exceed this value.
+    gold.storageclass.storage.k8s.io/requests.storage: "10Gi" 
+    silver.storageclass.storage.k8s.io/requests.storage: "20Gi" 
+    bronze.storageclass.storage.k8s.io/requests.storage: "0" 
+
+# <storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims
+# The total number of persistent volume claims with a matching storage class
+# that can exist in the project.
+    silver.storageclass.storage.k8s.io/persistentvolumeclaims: "5" 
+    bronze.storageclass.storage.k8s.io/persistentvolumeclaims: "0"
